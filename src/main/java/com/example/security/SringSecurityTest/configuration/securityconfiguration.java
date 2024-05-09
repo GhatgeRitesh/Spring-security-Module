@@ -22,10 +22,10 @@ public class securityconfiguration {
 
         return httpSecurity
                 .authorizeHttpRequests(registry ->{
-                 registry.requestMatchers("/home/public")
+                 registry.requestMatchers("/public")
                     .permitAll();
-                 registry.requestMatchers("/home/admin/**").hasRole("ADMIN");
-                 registry.requestMatchers("/home/normal/**").hasRole("USER");
+                 registry.requestMatchers("/admin/**").hasRole("ADMIN");
+                 registry.requestMatchers("/normal/**").hasRole("USER");
                  registry.anyRequest().authenticated();
                  })
                 .formLogin(formLogin -> formLogin.permitAll())
@@ -45,12 +45,13 @@ public class securityconfiguration {
     {
         UserDetails normalUser= User.builder()
                 .username("dev")
-                .password("$2a$12$nw5GNMmMtQfy0/0TWChkMOLu61ESIS4eB7D4TH8YzZx6P9X9AEgFy")
-                .roles("normal")
+                .password("$2a$12$nw5GNMmMtQfy0/0TWChkMOLu61ESIS4eB7D4TH8YzZx6P9X9AEgFy") // encoder is must
+                .roles("USER") // multiple roles can be specified
                 .build();
-        return new InMemoryUserDetailsManager(normalUser);
+        return new InMemoryUserDetailsManager(normalUser); // lots of other steps should be used for db connect
     }
 
+    // encrypt method is must for automated spring login
     @Bean
     public PasswordEncoder passwordEncoder()
     {
