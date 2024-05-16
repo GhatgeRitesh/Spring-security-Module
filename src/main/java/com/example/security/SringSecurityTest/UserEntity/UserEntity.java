@@ -1,61 +1,28 @@
 package com.example.security.SringSecurityTest.UserEntity;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-import org.springframework.context.annotation.Scope;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+import org.springframework.stereotype.Indexed;
 
 
 @Entity
-@Scope("prototype")
+@Table(name="Users")
+@Getter @Setter
 public class UserEntity {
   @Id
   private int Id;
+  @Column(unique = true)
+  @NonNull
   private String Name;
+  @NonNull
   private String Role;
+  @NonNull
   private String Password;
-
-  public String getName() {
-    return Name;
-  }
-
-  public void setName(String name) {
-    Name = name;
-  }
-
-  public String getPassword() {
-    return Password;
-  }
-
-  public void setPassword(String password) {
-    Password = password;
-  }
-
-  public String getRole() {
-    return Role;
-  }
-
-  public void setRole(String role) {
-    Role = role;
-  }
-
-  public int getId() {
-    return Id;
-  }
-
-  public void setId(int id) {
-    Id = id;
-  }
-
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + Id +
-                ", Name='" + Name + '\'' +
-                ", Password='" + Password + '\'' +
-                ", Role='" + Role + '\'' +
-                '}';
-    }
-
 }

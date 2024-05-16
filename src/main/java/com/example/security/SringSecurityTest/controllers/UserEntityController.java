@@ -74,6 +74,6 @@ public class UserEntityController {
        }catch(Exception e){
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }
-       }
+
    }
 }
