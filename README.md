@@ -16,7 +16,7 @@ sytax: @Configuration
 # --- add @Component class with Logs and other tasks to perform make sure access modifiers are public and return types are void if not it will just skip the results 
 
 syntax: 
-       @Component
+       @Component  
        public class FixedRate_Class{
           @Scheduled(fixedRate=5000){
               task stmts;
@@ -39,3 +39,26 @@ like : @Scheduled(cron ="*/5 * * * *")
   * = Day of Month (Every Day of the month)
   * = month (Every month)
   ? = Day of the week  (any day of the week) 
+
+
+# ** for the above execution spring will start with single thread execution only 
+If want to execute these tasks concurrently :
+
+1. specify the thread Scheduler configurations
+
+Syntax: 
+
+@Configuration
+public class threadSchedularConfiguration{
+    
+   @Bean
+   public TaskScheduler taskScheduler(){
+     
+      ThreadPoolTaskScheduler taskscheduler = new ThreadPoolTaskSchduler();
+      taskscheduler.setPoolSize(10);
+      taskscheduler.setThreadName("Scheduled-Task-");
+      return taskscheduler;
+   }
+}
+
+
